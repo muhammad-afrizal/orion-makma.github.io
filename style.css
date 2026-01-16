@@ -19,72 +19,269 @@ body {
   min-height: 1000px;
 }
 
-/* Navbar */
-.navbar img {
-  width: 150px;
+/* Floating Navbar */
+.navbar-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.4rem 7%;
-  background-color: #add8e6;
-  border-bottom: 2px solid #0e46a3;
-  position: fixed;
-  top: 0;
+  padding: 0.2rem 5%;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: all 0.3s ease;
+  max-width: 85%;
+  min-width: 850px;
+}
+
+.navbar .navbar-left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-width: 100px; /* Reduced space for logo */
+}
+
+.navbar img {
+  width: 100px; /* Reduced size */
+  height: auto;
+  margin-right: 15px; /* Reduced margin */
+  border-radius: 0; /* Remove circular shape to maintain original logo */
+  object-fit: contain;
+}
+
+.navbar .navbar-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.navbar .navbar-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-width: 60px; /* Reduced space for hamburger/menu controls */
+}
+
+.navbar .navbar-links {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.navbar .navbar-links a {
+  color: #0e46a3;
+  display: inline-block;
+  font-size: 14px; /* Reduced size */
+  margin: 0 0.5rem; /* Reduced margin */
+  font-weight: 700;
+  padding: 3px 8px; /* Reduced padding */
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.navbar .navbar-dropdown-links {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0;
+}
+
+.navbar .navbar-dropdown-links a {
+  color: #0e46a3;
+  display: inline-block;
+  font-size: 17px; /* Slightly larger font for readability */
+  margin: 5px 0; /* Reset margin since container has margins */
+  text-align: center;
+  width: 100%; /* Fill the container width */
+  font-weight: 700;
+  padding: 12px 15px; /* Increased padding for better touch targets */
+  border-radius: 20px; /* Rounded corners for menu items */
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.navbar .navbar-dropdown-links a:hover {
+  background-color: #f0f0f0; /* Light background on hover */
+  transform: scale(1.02); /* Slight scale effect */
+}
+
+/* Show desktop links on larger screens */
+@media (min-width: 769px) {
+  .navbar .navbar-center {
+    display: flex;
+  }
+
+  .navbar .navbar-links {
+    display: flex;
+  }
+
+  .navbar .navbar-dropdown {
+    display: none; /* Hide mobile dropdown on desktop */
+  }
+}
+
+.navbar .navbar-dropdown {
+  position: absolute;
+  top: 100%;
   left: 0;
   right: 0;
-  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 0 0 25px 25px; /* Only bottom corners rounded */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  margin: 0 12%; /* Apply margin to the entire container */
+  max-height: 0;
+  overflow: hidden;
+  z-index: 1000; /* Ensure it appears above other content */
+  display: block; /* Ensure it's displayed on mobile */
 }
 
-.navbar .navbar-logo {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #0e46a3;
-  font-style: italic;
+.navbar .navbar-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  max-height: 400px; /* Adjusted space for all menu items */
 }
 
-.navbar .navbar-logo span {
-  color: #0e46a3;
+.navbar .navbar-dropdown-links {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0;
+}
+
+.navbar .navbar-dropdown-links a {
+  margin: 5px 0; /* Reset margin since container has margins */
+  text-align: center;
+  width: 100%; /* Fill the container width */
+  font-size: 17px; /* Slightly larger font for readability */
+  padding: 12px 15px; /* Increased padding for better touch targets */
+  border-radius: 20px; /* Rounded corners for menu items */
+  transition: all 0.2s ease;
+}
+
+.navbar .navbar-dropdown-links a:hover {
+  background-color: #f0f0f0; /* Light background on hover */
+  transform: scale(1.02); /* Slight scale effect */
+}
+
+.navbar .navbar-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .navbar .navbar-nav a {
   color: #0e46a3;
   display: inline-block;
-  font-size: 20px;
-  margin: 0 1rem;
+  font-size: 14px; /* Reduced size */
+  margin: 0 0.8rem; /* Reduced margin */
   font-weight: 700;
+  padding: 5px 12px; /* Reduced padding */
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  text-decoration: none;
 }
 
 .navbar .navbar-nav a:hover {
-  color: salmon;
+  background-color: #0e46a3;
+  color: white;
 }
 
-.navbar .navbar-nav a::after {
-  content: "";
-  display: block;
-  padding-bottom: 0.5rem;
-  border-bottom: 0.1rem solid salmon;
-  transform: scaleX(0);
-  transition: 0.2s linear;
+.navbar .navbar-nav a.active {
+  background-color: #0e46a3;
+  color: white;
 }
 
-.navbar .navbar-nav a:hover::after {
-  transform: scaleX(-0.5);
+.navbar .navbar-extra {
+  display: flex;
+  align-items: center;
+  margin-left: 10px; /* Add some space from the nav links */
 }
 
 .navbar .navbar-extra a {
   color: #0e46a3;
-  margin: 0 0.5rem;
+  margin: 0 5px;
+  font-size: 20px;
 }
 
 .navbar .navbar-extra a:hover {
-  color: salmon;
+  color: #ff6b6b;
 }
 
 #hamburger-menu {
   display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #0e46a3;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    min-width: auto;
+    padding: 0.3rem 12%; /* Return to percentage for flexibility */
+    max-width: 100%; /* Full width for mobile */
+    display: flex;
+    justify-content: space-between; /* Ensure logo and hamburger are spaced apart */
+    align-items: center;
+  }
+
+  .navbar .navbar-left {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 100px; /* Adjusted space for logo */
+  }
+
+  .navbar img {
+    width: 50px; /* Further reduced size for mobile */
+    height: auto;
+    margin-right: 20px; /* Adjusted margin for more spacing */
+  }
+
+  .navbar .navbar-center {
+    display: none; /* Hide desktop links on mobile */
+  }
+
+  .navbar .navbar-links {
+    display: none; /* Hide desktop links on mobile */
+  }
+
+  .navbar .navbar-right {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 80px; /* Adjusted space for hamburger */
+  }
+
+  #hamburger-menu {
+    display: block;
+    font-size: 1.8rem; /* Larger hamburger icon */
+  }
+
+  .navbar .navbar-dropdown {
+    display: block; /* Show mobile dropdown on mobile */
+  }
 }
 
 /* Hero Section */
@@ -99,6 +296,7 @@ body {
   background-size: cover;
   background-position: center;
   position: relative;
+  padding-top: 100px; /* Space for floating navbar */
 }
 
 .hero::after {
@@ -150,8 +348,11 @@ body {
 
 /* About Section */
 .about,
-.menu {
+.menu,
+.contact,
+.map {
   padding: 8rem 7% 1.4rem;
+  scroll-margin-top: 100px; /* Account for floating navbar when scrolling to sections */
 }
 
 .about h2,
